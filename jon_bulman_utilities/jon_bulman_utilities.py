@@ -101,7 +101,7 @@ def ConvertUTCtoLocal(date,time):
 # If modifying these scopes, delete the file token.json.
 SCOPES = ["https://www.googleapis.com/auth/gmail.compose"]
 
-def Email_Me(credentials, token_file, to, subject, body):
+def Email_Me(credentials, token_file, to, subject, body, cc):
 
     creds = None
     # The file token.json stores the user's access and refresh tokens, and is
@@ -135,6 +135,8 @@ def Email_Me(credentials, token_file, to, subject, body):
         service = build("gmail", "v1", credentials=creds)
         message = MIMEText(body, 'html')
         message['to'] = to
+        if cc is not None and len(cc) > 0:
+            message['cc'] = cc
         message['subject'] = subject
         create_message = {'raw': base64.urlsafe_b64encode(message.as_bytes()).decode()}
         #results = 

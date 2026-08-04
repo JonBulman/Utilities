@@ -5,7 +5,7 @@
             "name": "Python: Run",
             "type": "debugpy",
             "request": "launch",
-            "program": "${workspaceFolder}/jon_bulman_utilities.py",
+            "program": "${workspaceFolder}/jon_bulman_utilities/jon_bulman_utilities.py",
             "cwd": "${workspaceFolder}"
         }
     ]
