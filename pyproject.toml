@@ -1,0 +1,16 @@
+[project]
+name = "jon_bulman_utilities"
+version = "0.1.0"
+description = "Shared utility functions for Jon's automation projects"
+requires-python = ">=3.10"
+readme = "README.md"
+authors = [
+    { name = "Jon Bulman" }
+]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
