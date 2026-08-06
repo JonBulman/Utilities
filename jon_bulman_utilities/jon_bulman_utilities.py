@@ -15,24 +15,6 @@ from googleapiclient.errors import HttpError
 import base64
 from email.mime.text import MIMEText
 from dotenv import load_dotenv
-
-class Jon_Bulman_Base:
-    def to_dict(self):
-        """Converts any child class instance into a JSON-serializable dict."""
-        data = self.__dict__.copy()
-        
-        # Add the class name so we know how to "cast" it back later
-        data["__type__"] = self.__class__.__name__
-        
-        # Handle datetime objects (JSON can't save them natively)
-        for key, value in data.items():
-            if isinstance(value, datetime):
-                data[key] = value.isoformat()
-        return data
-
-    def to_json(self):
-        """Returns a JSON string of the object."""
-        return json.dumps(self.to_dict(), indent=3)
     
 def setup_environment():
     sysState = getattr(sys, 'frozen', False)
@@ -101,7 +83,7 @@ def ConvertUTCtoLocal(date,time):
 # If modifying these scopes, delete the file token.json.
 SCOPES = ["https://www.googleapis.com/auth/gmail.compose"]
 
-def Email_Me(credentials, token_file, to, subject, body, cc):
+def Email_Me(credentials, token_file, to, subject, body, cc, bcc):
 
     creds = None
     # The file token.json stores the user's access and refresh tokens, and is
@@ -134,9 +116,12 @@ def Email_Me(credentials, token_file, to, subject, body, cc):
         # Call the Gmail API
         service = build("gmail", "v1", credentials=creds)
         message = MIMEText(body, 'html')
-        message['to'] = to
+        if to is not None and len(to) > 0:        
+            message['to'] = to
         if cc is not None and len(cc) > 0:
             message['cc'] = cc
+        if bcc is not None and len(bcc) > 0:
+            message['bcc'] = bcc
         message['subject'] = subject
         create_message = {'raw': base64.urlsafe_b64encode(message.as_bytes()).decode()}
         #results = 
