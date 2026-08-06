@@ -23,7 +23,7 @@ def main():
     jon_bulman_utilities.setup_environment()
 
     # Ask for additional command line arguments if needed (for VSCode)
-    parser = argparse.ArgumentParser(description="Get weather information")
+    parser = argparse.ArgumentParser(description="Get weather information (various sources)")
     parser.add_argument(
         "--config-file",
         "-c",
