@@ -201,3 +201,15 @@ def Extract_values(obj, key):
 
 def bold(colour, value):
     return f'<b style="color:{colour};">{value}</b>'
+
+def parse_date(date_str, *, end_of_day=False):
+    """Parse yyyy-mm-dd into a timezone-aware datetime."""
+    try:
+        y, m, d = map(int, date_str.split("-"))
+    except ValueError:
+        raise ValueError(f"Invalid date format: {date_str}")
+
+    if end_of_day:
+        return datetime(y, m, d, 23, 30, 0, tzinfo=ZoneInfo("Europe/London"))
+    else:
+        return datetime(y, m, d, 0, 0, 0, tzinfo=ZoneInfo("Europe/London"))

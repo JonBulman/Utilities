@@ -7,6 +7,7 @@ from .jon_bulman_utilities import (
     Getenv,
     Load_Config,
     load_json,
+    parse_date,
     setup_environment,
 )
 
@@ -22,5 +23,6 @@ __all__ = [
     "Jon_Bulman_Base",
     "Load_Config",
     "load_json",
+    "parse_date",
     "setup_environment",
 ]
