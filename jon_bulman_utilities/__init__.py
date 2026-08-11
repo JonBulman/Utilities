@@ -1,6 +1,6 @@
 from .jon_bulman_utilities import (
     bold,
-    ConvertUTCtoLocal,
+    convert_utc_to_local,
     Email_Me,
     Extract_values,
     Get_Variable,
@@ -15,7 +15,7 @@ from .base import Jon_Bulman_Base
 
 __all__ = [
     "bold",
-    "ConvertUTCtoLocal",
+    "convert_utc_to_local",
     "Email_Me",
     "Extract_values",
     "Getenv",

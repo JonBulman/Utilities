@@ -67,18 +67,23 @@ def Getenv(var):
     #    raise ValueError(f"{var} must be set")
     return val
 
-def ConvertUTCtoLocal(date,time):
-# convert UTC times to local
+from datetime import datetime
+from zoneinfo import ZoneInfo
 
-    utc_format = "%Y-%m-%d %H:%M:%S"
-    local_tz = pytz.timezone('Europe/London')
+def convert_utc_to_local(date, time):
+    # date = "2024-08-07"
+    # time = "13:45"
 
-    utc_string=f"{date} {time}:00"
-    utc_dt = datetime.strptime(utc_string, utc_format).replace(tzinfo=UTC)
+    utc_format = "%Y-%m-%d %H:%M"
+    utc_string = f"{date} {time}"
 
-    local_time = utc_dt.replace(tzinfo=pytz.utc).astimezone(local_tz)
+    # Parse as naive UTC, then attach UTC tzinfo
+    utc_dt = datetime.strptime(utc_string, utc_format).replace(tzinfo=ZoneInfo("UTC"))
 
-    return local_time
+    # Convert to Europe/London (handles GMT/BST automatically)
+    local_dt = utc_dt.astimezone(ZoneInfo("Europe/London"))
+
+    return local_dt
 
 # If modifying these scopes, delete the file token.json.
 SCOPES = ["https://www.googleapis.com/auth/gmail.compose"]
