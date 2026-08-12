@@ -65,8 +65,12 @@ class Solar_PV_Data(Jon_Bulman_Base):
     
     def Date(self):
         return self.date
+
     def Actual(self, actual):
         self.pv_actual = actual
+
+    def Get_Actual(self):
+        return self.pv_actual
 
     def Print(self):
         s = Solar_PV_Data.String(self)

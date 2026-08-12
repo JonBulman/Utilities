@@ -68,6 +68,16 @@ def main():
     if my_Solcast_APIKEY is None:
         print("No apikey defined - set environment variable SOLCAST_API_KEY or provide on command line using --apikey")
         sys.exit(1)
+
+    #my_Stormglass_APIKEY =  jon_bulman_utilities.Get_Variable("STORMGLASS_API_KEY",config,my_DEBUG_level)
+    #if args.apikey:
+    #    # overrides environment variable
+    #    my_Stormglass_APIKEY = args.apikey
+    #if my_Stormglass_APIKEY is None:
+    #    print("No apikey defined - set environment variable STORMGLASS_API_KEY or provide on command line using --apikey")
+    #    sys.exit(1)
+    #jon_bulman_weather.get_stormglassio(my_Stormglass_APIKEY)
+    #input()
     
     d = todays_date
     tomorrow = d + timedelta(days = 1)

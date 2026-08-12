@@ -1,5 +1,6 @@
 import requests
 import json
+import arrow
 import jon_bulman_weather
 
 def GetForecastsolarWeatherData(url, for_date, debug_level):
@@ -88,3 +89,37 @@ def GetVisualCrossingWeatherData(url, for_date, debug_level):
         print("No data for date ",for_date,e)
 
     return solar_estimate
+
+def get_stormglassio(api_key) :
+    # https://docs.stormglass.io/#/tide?id=sea-levels-and-datums
+
+    start = arrow.now().floor('day')
+    end = arrow.now().shift(days=1).floor('day')
+
+    response = requests.get('https://api.stormglass.io/v2/tide/sea-level/point',
+        params={
+            'lat': 50.162259246444606,
+            'lng': -5.059666804253347543,
+            'end': end.to('UTC').timestamp(),  # Convert to UTC timestam
+            'start': start.to('UTC').timestamp(),  # Convert to UTC timestamp
+        },
+        headers={
+            'Authorization': '2478a270-95c7-11f1-b11b-0242ac120004-2478a2ca-95c7-11f1-b11b-0242ac120004'
+        }
+    )
+    #response = requests.get('https://api.stormglass.io/v2/tide/stations/area',
+    #    headers={
+    #        'Authorization': '2478a270-95c7-11f1-b11b-0242ac120004-2478a2ca-95c7-11f1-b11b-0242ac120004'
+    #    },
+    #    params={
+    #    }
+    #        'box': '51.0,-4:49,-6'
+    #'https://api.stormglass.io/v2/tide/stations',
+    #)
+
+        # Do something with response data.
+    json_data = response.json()
+    with open("tidedata.json", "w") as f_out:
+        json.dump(json_data, f_out, indent=3)
+
+
