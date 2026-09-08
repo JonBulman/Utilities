@@ -1,12 +1,12 @@
 import json
 import os
 import sys
-import pytz
-from datetime import datetime, UTC
+from datetime import datetime
+from zoneinfo import ZoneInfo
 
-from typing import List, Any#, Union, Dict
+#from typing import List, Any#, Union, Dict
+from typing import Any
 
-# from google.auth.transport.requests import Request
 import google.auth.transport.requests
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -17,20 +17,10 @@ from email.mime.text import MIMEText
 from dotenv import load_dotenv
     
 def setup_environment():
-    sysState = getattr(sys, 'frozen', False)
-    if sysState is False :
-    #    # Running as compiled .exe
-    #    return os.path.join(os.path.dirname(sys.executable), configFile)
-    #else :
-        print(sys.executable)
-        if "automation" not in sys.executable:
-            raise RuntimeError("Wrong Python environment")
-        
-    # This reads my environment variables from /Users/Jon/.config/automation/.env MAKE CHANGES THERE!
-    #load_dotenv("/Users/Jon/.config/automation/.env")
     load_dotenv()
 
-def load_json(filepath: str, class_map: Any) -> List[Any]:
+#def load_json(filepath: str, class_map: Any) -> List[Any]:
+def load_json(filepath: str, class_map: Any) -> list[Any]:
     try:
         with open(filepath, "r") as f:
             data = json.load(f)
@@ -67,9 +57,6 @@ def Getenv(var):
     #    raise ValueError(f"{var} must be set")
     return val
 
-from datetime import datetime
-from zoneinfo import ZoneInfo
-
 def convert_utc_to_local(date, time):
     # date = "2024-08-07"
     # time = "13:45"
@@ -104,7 +91,7 @@ def Email_Me(credentials, token_file, to, subject, body, cc, bcc):
             request = google.auth.transport.requests.Request()
             try:
                 creds.refresh(request)
-            except Exception as e:
+            except OSError as e:
                 print(f"How exceptional! {e}")
                 print(f"A refresh error occurred - new token needed - delete {token_file}")
                 return

@@ -18,11 +18,10 @@ def GetForecastsolarWeatherData(url, for_date, debug_level):
 
 # Loop over forecast to produce body to print
     w_data = data["result"]
-    #print(w_data)
-    try:
-        solar_estimate = w_data[for_date]
-    except Exception as e:
-        print("No data for date ",for_date,e)
+    solar_estimate = w_data.get(for_date)
+
+    if solar_estimate is None:
+        print(f"No data for date {for_date}")
 
     return solar_estimate
 
@@ -74,19 +73,22 @@ def GetVisualCrossingWeatherData(url, for_date, debug_level):
             return solar_estimate
     data = json.loads(response_API.text)
 
-# Loop over forecast to produce body to print
+    # Loop over forecast to produce body to print
     w_data = data["days"]
-    # print(w_data)
+
+    solar_estimate = None
+
     try:
-        # date=w_data[0]
-        for ct, product in enumerate(w_data):
-            dt = product["datetime"]
-            if dt == for_date:
+        for product in w_data:
+            if product["datetime"] == for_date:
                 solar_estimate = product["solarenergy"]
                 break
-        # print(date)
-    except Exception as e:
-        print("No data for date ",for_date,e)
+
+        if solar_estimate is None:
+            print(f"No data found for date {for_date}")
+
+    except KeyError as e:
+        print(f"Missing key in data: {e}")
 
     return solar_estimate
 
