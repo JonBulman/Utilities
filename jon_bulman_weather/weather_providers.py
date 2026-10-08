@@ -3,17 +3,14 @@ import json
 import arrow
 import jon_bulman_weather
 
-def GetForecastsolarWeatherData(url, for_date, debug_level):
+def GetForecastsolarWeatherData(url, for_date, debug_level=0):
 
     solar_estimate = -1.0
     print(url)
     response_API = requests.get(url)#, auth=(api_key,''))
     if response_API.status_code != 200:
-        if debug_level > 0:
-            print("...GetWeatherData",response_API.status_code)
-        else:
-            print("Failed to get ",response_API.status_code)
-            return solar_estimate
+        print("Failed to get ",response_API.status_code)
+        return solar_estimate
     data = json.loads(response_API.text)
 
 # Loop over forecast to produce body to print
@@ -22,6 +19,7 @@ def GetForecastsolarWeatherData(url, for_date, debug_level):
 
     if solar_estimate is None:
         print(f"No data for date {for_date}")
+        solar_estimate = -1.0
 
     return solar_estimate
 
