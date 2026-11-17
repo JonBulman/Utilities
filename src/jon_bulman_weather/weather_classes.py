@@ -4,7 +4,7 @@
 # from datetime import date, timedelta
 # Used to store Solcast data
 #
-from jon_bulman_utilities.base import Jon_Bulman_Base
+from jon_bulman_utilities.base import JonBulmanBase
 
 class Solcast_Breakdown:
     def __init__(self, pv_estimate, pv_estimate10, pv_estimate90, period_end, period):
@@ -55,7 +55,7 @@ class Solcast_Breakdown:
         s = f"{self.date},{hmtlfmt_start}{self.from_time},{self.pv_estimate:.3f}{end_bold},{self.pv_estimate10:.3f} (p10),{self.pv_estimate90:.3f} (p90){line_break}"
         return s
     
-class Solar_PV_Data(Jon_Bulman_Base):
+class Solar_PV_Data(JonBulmanBase):
     def __init__(self, date, pv_forecast_solar, pv_solcast, pv_visual_crossing, pv_actual=0.):
         self.date = date
         self.pv_forecast_solar = pv_forecast_solar
