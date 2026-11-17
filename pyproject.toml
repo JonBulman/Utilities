@@ -1,18 +1,27 @@
-[project]
-name = "jon_bulman_utilities"
-version = "0.1.0"
-description = "Shared utility functions for Jon's automation projects"
-requires-python = ">=3.10"
-readme = "README.md"
-authors = [
-    { name = "Jon Bulman" }
-]
-
 [build-system]
-requires = ["setuptools>=61.0"]
+requires = ["setuptools>=69", "wheel"]
 build-backend = "setuptools.build_meta"
 
-[tool.setuptools.packages.find]
-where = ["."]
-include = ["jon_bulman_utilities", "jon_bulman_weather"]
+[project]
+name = "jon-bulman-utilities"
+version = "0.2.0"
+description = "Common utility functions used across Jon Bulman projects"
+readme = "README.md"
+requires-python = ">=3.13"
 
+authors = [
+    {name = "Jon Bulman"}
+]
+
+dependencies = [
+    "python-dotenv",
+    "google-auth",
+    "google-auth-oauthlib",
+    "google-api-python-client"
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

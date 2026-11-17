@@ -1,7 +1,7 @@
 import json
 from datetime import datetime
 
-class Jon_Bulman_Base:
+class JonBulmanBase:
     def to_dict(self):
         """Converts any child class instance into a JSON-serializable dict."""
         data = self.__dict__.copy()

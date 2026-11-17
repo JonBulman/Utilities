@@ -1,5 +1,14 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
+*.py[cod]
+
+build/
+dist/
+*.egg-info/
+
+.venv/
+.pytest_cache/
+.coverage
 .DS_Store
 *.py[codz]
 *$py.class
